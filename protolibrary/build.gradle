@@ -1,0 +1,75 @@
+plugins {
+    id 'com.android.library'
+    id 'com.google.protobuf'
+}
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion 30
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 30
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+/*protobuf {
+    protoc {
+        artifact = 'com.google.protobuf:protoc:3.7.0'
+    }
+    plugins {
+        javalite {
+            artifact = 'com.google.protobuf:protoc-gen-javalite:3.0.0'
+        }
+    }
+    generateProtoTasks {
+        all().each { task ->
+            task.builtins {
+                remove java
+            }
+            task.plugins {
+                javalite {}
+            }
+        }
+    }
+}*/
+
+protobuf {
+    protoc {
+        artifact = 'com.google.protobuf:protoc:3.8.0'
+    }
+    generateProtoTasks {
+        all().each { task ->
+            task.builtins {
+                java { } //should be empty - chan
+            }
+        }
+    }
+}
+
+/*sourceSets {
+    main.java.srcDirs += "${protobuf.generatedFilesBaseDir}/main/javalite"
+    main.java.srcDirs += "$projectDir/src/main/proto"
+}*/
+
+dependencies {
+    //implementation 'com.google.protobuf:protobuf-lite:3.10.0'
+    //implementation 'com.google.protobuf:protobuf-javalite:3.10.0'
+    //https://github.com/protocolbuffers/protobuf/issues/6718
+    api "com.google.protobuf:protobuf-java-util:3.11.0"
+
+    api 'com.google.protobuf:protobuf-java:3.11.0'
+    implementation "androidx.core:core-ktx:+"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
+}
+
+//processResources {
+  //  exclude('**/*.proto')
+//}

@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.chan.chanprotobuf.util.ZPlatformLayout
+import com.chan.protolibrary.ProtoUtil.convertUsingProtoBuf
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
-import com.google.protobuf.util.JsonFormat
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
 import java.io.InputStream
@@ -63,17 +63,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun convertUsingProtoBuf(data: JSONObject) {
-        Log.d("ChanLog", "Proto Check")
-        //val chanData = ChanDataProto.ChanData.newBuilder().mergeFrom(data.readBytes()).build()
-        try {
-            val builder = ChanDataProto.ChanData.newBuilder()
-            JsonFormat.parser().ignoringUnknownFields().merge(data.toString(), builder)
-            val chanData = builder.build()
-            Log.d("ChanLog", "layoutId: ${chanData.layout}, type: ${chanData.type}, meta: ${chanData.meta}")
-        } catch (ex: Exception) {
-            ex.printStackTrace()
-        }
+    private fun convertUsingProtoBufInternal(data: JSONObject) {
+
         /*CoroutineScope(Dispatchers.IO).launch {
             val url = URL("https://run.mocky.io/v3/226a046f-7b62-4086-b90d-f5081cbc5451")
             val urlConnection: HttpURLConnection = url.openConnection() as HttpURLConnection
@@ -90,34 +81,5 @@ class MainActivity : AppCompatActivity() {
         //convertUsingProtoBuf()
     }
 
-    private fun convertUsingProtoBuf() {
-        // building PhoneNumber objects
-        val phoneHome = AddressBookProtos.Person.PhoneNumber.newBuilder()
-                .setNumber("+49123456")
-                .setType(AddressBookProtos.Person.PhoneType.HOME)
-                .build()
-        val phoneMobile = AddressBookProtos.Person.PhoneNumber.newBuilder()
-                .setNumber("+49654321")
-                .setType(AddressBookProtos.Person.PhoneType.MOBILE)
-                .build()
 
-        // building a Person object using phone data
-        val person = AddressBookProtos.Person.newBuilder()
-                .setId(1)
-                .setName("Mohsen")
-                .setEmail("info@mohsenoid.com")
-                .addAllPhones(listOf(phoneHome, phoneMobile))
-                .build()
-
-        // building an AddressBook object using person data
-        val addressBook = AddressBookProtos.AddressBook.newBuilder()
-                .addAllPeople(listOf(person))
-                .build()
-
-        // finally this is how you get serialized ByteArray
-        val bytes = addressBook.toByteArray()
-
-        // You can deserialize AddressBook bytes
-        val myAddressBook = AddressBookProtos.AddressBook.parseFrom(bytes)
-    }
 }

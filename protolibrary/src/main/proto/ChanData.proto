@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package tutorial;
 
-option java_package = "com.chan.chanprotobuf";
+option java_package = "com.chan.protolibrary";
 option java_outer_classname = "ChanDataProto";
 
 message ChanData {
