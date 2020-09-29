@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package tutorial;
+
+option java_package = "com.chan.chanprotobuf";
+option java_outer_classname = "ChanDataProto";
+
+message ChanData {
+  string layout = 1;
+  string type = 2;
+  string meta = 3;
+}
+
+/*
+message ChanData {
+  string data = 1;
+  ItemData items = 2;
+}
+
+message ItemData {
+  string type = 1;
+}*/
