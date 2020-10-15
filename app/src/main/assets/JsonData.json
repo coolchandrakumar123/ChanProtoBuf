@@ -1,5 +1,19 @@
 {
   "layout": "ticket-list",
   "type": "List",
-  "meta": "Ticket"
+  "meta": "Ticket",
+  "nullableIntValue": 15,
+  "colors": [
+    {
+      "bg_color": "red",
+      "text_color": 10
+    },
+    {
+      "bg_color": "green",
+      "border_color": 35
+    },
+    {
+      "text_color": 20
+    }
+  ]
 }

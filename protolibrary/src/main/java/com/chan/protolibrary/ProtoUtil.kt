@@ -14,6 +14,14 @@ object ProtoUtil {
             val builder = ChanDataProto.ChanData.newBuilder()
             JsonFormat.parser().ignoringUnknownFields().merge(data.toString(), builder)
             val chanData = builder.build()
+            chanData.takeIf { it.hasNullableIntValue() }?.let {
+                Log.d("ChanLog", "NullableIntValue: ${it.nullableIntValue}")
+            }?: Log.d("ChanLog", "NullableIntValue: emptyValue")
+            chanData.colorsList.forEach {
+                Log.d("ChanLog", "BGColor=${it.takeIf { it.hasBgColor() }?.bgColor?:"Empty"}")
+                Log.d("ChanLog", "TextColor=${it.textColor}")
+                Log.d("ChanLog", "BorderColor=${it.takeIf { it.hasBorderColor() }?.borderColor?:"Empty"}")
+            }
             Log.d("ChanLog", "layoutId: ${chanData.layout}, type: ${chanData.type}, meta: ${chanData.meta}")
         } catch (ex: Exception) {
             ex.printStackTrace()

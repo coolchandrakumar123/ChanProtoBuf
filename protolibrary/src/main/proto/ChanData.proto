@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 package tutorial;
+import "google/protobuf/wrappers.proto";
 
 option java_package = "com.chan.protolibrary";
 option java_outer_classname = "ChanDataProto";
@@ -9,6 +10,14 @@ message ChanData {
   string layout = 1;
   string type = 2;
   string meta = 3;
+  google.protobuf.Int32Value nullableIntValue = 4;
+  repeated Color colors = 5;
+}
+
+message Color {
+  google.protobuf.StringValue bg_color = 1;
+  int32 text_color = 2;
+  google.protobuf.Int32Value border_color = 3;
 }
 
 /*
